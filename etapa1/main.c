@@ -54,3 +54,5 @@ int main(int argc, char** argv)
   printf("NOTA %d\n\n",nota);  
   fprintf(stderr,"NOTA %d\n\n",nota);  
   }
+
+  void initMe(){}
