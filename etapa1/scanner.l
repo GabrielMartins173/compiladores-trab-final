@@ -1,4 +1,4 @@
-/*Autor Gabriel Martins dos Santos*/
+/* Autor Gabriel Martins dos Santos - 00275617 */
 
 %{
 #include "tokens.h"

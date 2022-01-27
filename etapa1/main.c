@@ -1,4 +1,7 @@
-/*Código baseado na implementação feita pelo professor Marcelo Johann*/
+/*
+Autor: Gabriel Martins dos Santos - 00275617
+Código baseado na implementação feita pelo professor Marcelo Johann
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
