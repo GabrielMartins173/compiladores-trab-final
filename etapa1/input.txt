@@ -1,0 +1,43 @@
+"testing an error
+
+char 
+int
+float
+if 
+then 
+else 
+while
+goto
+read 
+print 
+return
+
+67363
+"multiple strings at the same line" 
+'t'
+if 't' = 120 then
+    goto 123
+else    
+    goto 13413
+
+return 213404
+
+\\testing a line with comments 
+
+\* testing 
+a 
+comment 
+that 
+uses 
+multiple 
+lines 
+*\
+
+2 + 2 = 4
+2 * 7 = 14
+if x >= y then
+    _x = 10
+else    
+    _y = 120
+
+variable_name-being-used

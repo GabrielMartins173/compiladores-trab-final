@@ -33,14 +33,14 @@ HASH_NODE *hashFind(char *text)
 HASH_NODE *hashInsert(char *text, int type)
 {
     HASH_NODE *newnode;
-    int address = hashAdress(text);
+    int address = hashAddress(text);
 
-    if((newnode = hasFind(text)) != 0)
+    if((newnode = hashFind(text)) != 0)
         return newnode;
     
     newnode = (HASH_NODE*) calloc(1, sizeof(HASH_NODE));
     newnode -> type = type;
-    newnode -> text = (char*) calloc(strelen(text)+1, sizeof(char));
+    newnode -> text = (char*) calloc(strlen(text)+1, sizeof(char));
     strcpy(newnode -> text, text);
     newnode -> next = Table[address];
     Table[address] = newnode;

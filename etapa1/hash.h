@@ -21,5 +21,3 @@ HASH_NODE *hashInsert(char *text, int type);
 void hashPrint(void);
 
 #endif
-
-//END
