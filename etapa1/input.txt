@@ -41,3 +41,9 @@ else
     _y = 120
 
 variable_name-being-used
+
+variable-with|pipe
+
+"testing "double string" together"
+
+"testing using bar \" in this line"
