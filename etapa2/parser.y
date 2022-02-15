@@ -31,6 +31,10 @@ extern int getLineNumber();
 
 %token TOKEN_ERROR
 
+%left OPERATOR_LE OPERATOR_GE OPERATOR_EQ OPERATOR_DIF '<' '>'
+%left '+' '-'
+%left '*' '/'
+
 %%
 
 program: decl
@@ -154,7 +158,6 @@ printParameter: LIT_STRING
 %%
 
 int yyerror(){
-    fprintf(stderr, "Syntax Error. \n");
-    printf("Error Found at line %d \n",getLineNumber());
+    fprintf(stderr, "Syntax Error Found at line %d \n",getLineNumber());
     exit(3);
 }

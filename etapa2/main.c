@@ -42,8 +42,7 @@ int main(int argc, char **argv)
   printf("Number of Errors on the File: %d\n\n", getNumberOfErrors());
 
   printHashTable();
-  fprintf(stderr, "Compilation Completed Successfully! \n");
-  fprintf(stderr, "\n");
+  printf(" \nCompilation Completed Successfully! \n\n");
 
   exit(0);
 }
