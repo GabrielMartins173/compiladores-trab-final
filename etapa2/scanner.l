@@ -1,12 +1,14 @@
 /* Autor Gabriel Martins dos Santos - 00275617 */
 
 %{
+
+#include "y.tab.h"    
 #include "hash.h"
-#include "y.tab.h"
 
 int lineNumber = 1;
 int numberOfErrors = 0;
 int running = 1;
+
 %}
 
 %x COMMENT
@@ -46,7 +48,6 @@ return                   {return KW_RETURN;}
 <COMMENT>.
 %%
 
-#include "y.tab.h"
 #include "y.tab.c"
 #include "hash.c"
 #include "main.c"

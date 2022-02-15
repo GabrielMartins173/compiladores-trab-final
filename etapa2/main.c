@@ -22,21 +22,16 @@ int main(int argc, char **argv)
   FILE *outputFile = 0;
   int token = 0;
 
-  if (argc < 3)
+  if (argc < 2)
   {
-    printf("call: ./etapa1 input.txt output.txt \n");
+    printf("call: ./etapa1 input.txt \n");
     exit(1);
   }
 
   if (0 == (yyin = fopen(argv[1], "r")))
   {
     printf("Cannot open file %s... \n", argv[1]);
-    exit(1);
-  }
-  if (0 == (outputFile = fopen(argv[2], "w+")))
-  {
-    printf("Cannot open file %s... \n", argv[2]);
-    exit(1);
+    exit(2);
   }
 
   initMe();
@@ -45,9 +40,6 @@ int main(int argc, char **argv)
 
   printf("Number of Lines on the File: %d\n\n", getLineNumber());
   printf("Number of Errors on the File: %d\n\n", getNumberOfErrors());
-
-  fprintf(outputFile, "Number of Lines on the File: %d\n\n", getLineNumber());
-  fprintf(outputFile, "Number of Errors on the File: %d\n\n", getNumberOfErrors());
 
   printHashTable();
   fprintf(stderr, "Compilation Completed Successfully! \n");

@@ -10,4 +10,4 @@ lex.yy.c: scanner.l
 		lex scanner.l
 
 clean:
-		rm -f lex.yy.c y.tab.c y.tab.h etapa2 output.txt
+		rm -f lex.yy.c y.tab.c y.tab.h etapa2
