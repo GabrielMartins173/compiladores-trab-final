@@ -19,7 +19,6 @@ extern void initMe();
 
 int main(int argc, char **argv)
 {
-  FILE *outputFile = 0;
   int token = 0;
 
   if (argc < 2)
@@ -32,16 +31,19 @@ int main(int argc, char **argv)
   {
     printf("Cannot open file %s... \n", argv[1]);
     exit(2);
+  }else {
+    yyin = fopen(argv[1], "r");
   }
 
   initMe();
 
   yyparse();
 
+  printHashTable();
+
   printf("Number of Lines on the File: %d\n\n", getLineNumber());
   printf("Number of Errors on the File: %d\n\n", getNumberOfErrors());
 
-  printHashTable();
   printf(" \nCompilation Completed Successfully! \n\n");
 
   exit(0);

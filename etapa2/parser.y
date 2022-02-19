@@ -52,14 +52,16 @@ closeDecl: ';' decl
 closeFunc: decl
     ;
 
-decFunction: KW_INT TK_IDENTIFIER '(' parametersList ')' body
-    | KW_FLOAT TK_IDENTIFIER '(' parametersList ')' body
-    | KW_CHAR TK_IDENTIFIER '(' parametersList ')' body
+decFunction: KW_INT TK_IDENTIFIER '(' parametersList ')' cmd
+    | KW_FLOAT TK_IDENTIFIER '(' parametersList ')' cmd
+    | KW_CHAR TK_IDENTIFIER '(' parametersList ')' cmd
+    | KW_INT TK_IDENTIFIER '(' ')' cmd
+    | KW_FLOAT TK_IDENTIFIER '(' ')' cmd
+    | KW_CHAR TK_IDENTIFIER '(' ')' cmd
     ;
 
-parametersList:  parameter ',' parametersList
+parametersList: parameter ',' parametersList 
     | parameter
-    |
     ;
 
 parameter: KW_INT TK_IDENTIFIER
@@ -91,9 +93,6 @@ arrayValues: LIT_INTEGER arrayValues
     |
     ;
 
-body: '{' lcmd '}'
-    ;
-
 lcmd: cmd ';' lcmd
     | label lcmd
     |
@@ -105,43 +104,33 @@ label: TK_IDENTIFIER ':'
 cmd:  TK_IDENTIFIER '=' expr
     | TK_IDENTIFIER '[' expr ']' '=' expr
     | KW_PRINT printValues
-    | KW_WHILE expr body
-    | KW_IF expr KW_THEN bodyIf
+    | KW_WHILE expr cmd
+    | KW_IF expr KW_THEN cmd KW_ELSE cmd
     | KW_IF expr KW_THEN cmd
     | KW_GOTO TK_IDENTIFIER
     | KW_RETURN expr
+    | '{' lcmd '}'
+    |
     ;
 
-bodyIf: body KW_ELSE body
-    | body KW_ELSE cmd
-    | body
-    ;
-
-expr: characterLiterals
+expr: LIT_INTEGER
+    | LIT_CHAR
     | TK_IDENTIFIER '[' expr ']'
     | TK_IDENTIFIER '(' listExpr ')'
     | TK_IDENTIFIER
     | KW_READ
     | '(' expr ')'
-    | expr operator expr
+    | expr OPERATOR_DIF expr
+    | expr OPERATOR_EQ expr
+    | expr OPERATOR_GE expr
+    | expr OPERATOR_LE expr
+    | expr '+' expr
+    | expr '-' expr
+    | expr '*' expr
+    | expr '/' expr
+    | expr '>' expr
+    | expr '<' expr
     ;
-
-characterLiterals: LIT_CHAR
-    | LIT_INTEGER
-    ; 
-
-operator: OPERATOR_DIF
-    | OPERATOR_EQ
-    | OPERATOR_GE
-    | OPERATOR_LE
-    | '+'
-    | '-'
-    | '*'
-    | '/'
-    | '%'
-    | '<'
-    | '>'
-    ;  
 
 listExpr: expr ',' listExpr
     | expr
