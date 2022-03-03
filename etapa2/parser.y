@@ -46,7 +46,6 @@ decl: dec closeDecl
     ;
     
 closeDecl: ';' decl 
-    |
     ;
 
 closeFunc: decl
