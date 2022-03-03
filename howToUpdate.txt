@@ -1,0 +1,3 @@
+- tar cvzf etapa[x].tgz
+- stfp gmsantos@html.inf.ufrgs.br
+- navegar nas pastas e inserir o tgz com put
