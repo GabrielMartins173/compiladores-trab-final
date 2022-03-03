@@ -65,11 +65,11 @@ AST* Root = NULL;
 
 %%
 
-program: decl {$$ = $1; Root = $$; /*astPrint($1, 0);*/}
+program: decl {$$ = $1; Root = $$;}
     ;
 
-decl: dec closeDecl             {$$ = astCreate(AST_DECL, 0, $1, $2, 0, 0); /*astPrint($1, 0);*/}
-    | decFunction closeFunc     {$$ = astCreate(AST_DECL, 0, $1, $2, 0, 0); /*astPrint($1, 0);*/}
+decl: dec closeDecl             {$$ = astCreate(AST_DECL, 0, $1, $2, 0, 0);}
+    | decFunction closeFunc     {$$ = astCreate(AST_DECL, 0, $1, $2, 0, 0);}
     |                           {$$ = 0; }
     ;
     
