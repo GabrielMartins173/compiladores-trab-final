@@ -65,26 +65,20 @@ AST* Root = NULL;
 
 %%
 
-program: decl {$$ = $1; Root = $$;}
+program: decl {Root = $1;}
     ;
 
-decl: dec closeDecl             {$$ = astCreate(AST_DECL, 0, $1, $2, 0, 0);}
-    | decFunction closeFunc     {$$ = astCreate(AST_DECL, 0, $1, $2, 0, 0);}
+decl: dec ';' decl              {$$ = astCreate(AST_DECL, 0, $1, $2, 0, 0);}
+    | decFunction decl          {$$ = astCreate(AST_DECL_FUNC, 0, $1, $2, 0, 0);}
     |                           {$$ = 0; }
     ;
-    
-closeDecl: ';' decl             {$$ = $2;}
-    ;
 
-closeFunc: decl                 {$$ = $1;}
-    ;
-
-decFunction: KW_INT TK_IDENTIFIER '(' parametersList ')' cmd    {$$ = astCreate(AST_DEC_FUNCTION, $2, $4, $6, 0, 0);}
-    | KW_FLOAT TK_IDENTIFIER '(' parametersList ')' cmd         {$$ = astCreate(AST_DEC_FUNCTION, $2, $4, $6, 0, 0);}
-    | KW_CHAR TK_IDENTIFIER '(' parametersList ')' cmd          {$$ = astCreate(AST_DEC_FUNCTION, $2, $4, $6, 0, 0);}
-    | KW_INT TK_IDENTIFIER '(' ')' cmd                          {$$ = astCreate(AST_DEC_FUNCTION, $2, $5, 0, 0, 0);}
-    | KW_FLOAT TK_IDENTIFIER '(' ')' cmd                        {$$ = astCreate(AST_DEC_FUNCTION, $2, $5, 0, 0, 0);}
-    | KW_CHAR TK_IDENTIFIER '(' ')' cmd                         {$$ = astCreate(AST_DEC_FUNCTION, $2, $5, 0, 0, 0);}
+decFunction: KW_INT TK_IDENTIFIER '(' parametersList ')' cmd    {$$ = astCreate(AST_DEC_FUNCTION_INT_PARAM, $2, $4, $6, 0, 0);}
+    | KW_FLOAT TK_IDENTIFIER '(' parametersList ')' cmd         {$$ = astCreate(AST_DEC_FUNCTION_FLOAT_PARAM, $2, $4, $6, 0, 0);}
+    | KW_CHAR TK_IDENTIFIER '(' parametersList ')' cmd          {$$ = astCreate(AST_DEC_FUNCTION_CHAR_PARAM, $2, $4, $6, 0, 0);}
+    | KW_INT TK_IDENTIFIER '(' ')' cmd                          {$$ = astCreate(AST_DEC_FUNCTION_INT, $2, $5, 0, 0, 0);}
+    | KW_FLOAT TK_IDENTIFIER '(' ')' cmd                        {$$ = astCreate(AST_DEC_FUNCTION_FLOAT, $2, $5, 0, 0, 0);}
+    | KW_CHAR TK_IDENTIFIER '(' ')' cmd                         {$$ = astCreate(AST_DEC_FUNCTION_CHAR, $2, $5, 0, 0, 0);}
     ;
 
 parametersList: parameter ',' parametersList        {$$ = astCreate(AST_PARAMETERS_LIST, 0, $1, $3, 0, 0);}
@@ -110,13 +104,13 @@ decFloat: ':' LIT_INTEGER '/' LIT_INTEGER   {$$ = astCreate(AST_FLOAT, 0, astCre
     | arrayFormat                           {$$ = $1;}    
     ;
 
-arrayFormat: '[' LIT_INTEGER ']' ':' LIT_INTEGER arrayValues    {$$ = astCreate(AST_ARRAY_FORMAT, $2, astCreateTerminal($5), $6, 0, 0);}
-    | '[' LIT_INTEGER ']' ':' LIT_CHAR arrayValues              {$$ = astCreate(AST_ARRAY_FORMAT, $2, astCreateTerminal($5), $6, 0, 0);}
+arrayFormat: '[' LIT_INTEGER ']' ':' LIT_INTEGER arrayValues    {$$ = astCreate(AST_ARRAY_FORMAT_INT, $2, astCreateTerminal($5), $6, 0, 0);}
+    | '[' LIT_INTEGER ']' ':' LIT_CHAR arrayValues              {$$ = astCreate(AST_ARRAY_FORMAT_CHAR, $2, astCreateTerminal($5), $6, 0, 0);}
     | '[' LIT_INTEGER ']'                                       {$$ = astCreateTerminal($2);}
     ;
 
-arrayValues: LIT_INTEGER arrayValues    {$$ = astCreate(AST_ARRAY_VALUES, $1, $2, 0, 0, 0);}
-    | LIT_CHAR arrayValues              {$$ = astCreate(AST_ARRAY_VALUES, $1, $2, 0, 0, 0);}    
+arrayValues: LIT_INTEGER arrayValues    {$$ = astCreate(AST_ARRAY_VALUES_INT, $1, $2, 0, 0, 0);}
+    | LIT_CHAR arrayValues              {$$ = astCreate(AST_ARRAY_VALUES_CHAR, $1, $2, 0, 0, 0);}    
     |                                   {$$ = 0;}
     ;
 
@@ -129,14 +123,14 @@ label: TK_IDENTIFIER ':'    {$$ = astCreateTerminal($1);}
     ;
 
 cmd:  TK_IDENTIFIER '=' expr                    {$$ = astCreate(AST_ATRIBUTION, $1, $3, 0, 0, 0);}
-    | TK_IDENTIFIER '[' expr ']' '=' expr       {$$ = astCreate(AST_ATRIBUTION, $1, $3, $6, 0, 0);}
+    | TK_IDENTIFIER '[' expr ']' '=' expr       {$$ = astCreate(AST_VEC_ATRIBUTION, $1, $3, $6, 0, 0);}
     | KW_PRINT printValues                      {$$ = astCreate(AST_PRINT, 0, $2, 0, 0, 0);}
     | KW_WHILE expr cmd                         {$$ = astCreate(AST_WHILE, 0, $2, $3, 0, 0);}
     | KW_IF expr KW_THEN cmd KW_ELSE cmd        {$$ = astCreate(AST_IF_THEN_ELSE, 0, $2, $4, $6, 0);}
     | KW_IF expr KW_THEN cmd                    {$$ = astCreate(AST_IF_THEN, 0, $2, $4, 0, 0);}
     | KW_GOTO TK_IDENTIFIER                     {$$ = astCreate(AST_GOTO, 0, astCreateTerminal($2), 0, 0, 0);}
     | KW_RETURN expr                            {$$ = astCreate(AST_RETURN, 0, $2, 0, 0, 0);}
-    | '{' lcmd '}'                              {$$ = $2;}
+    | '{' lcmd '}'                              {$$ = astCreate(AST_BLOCK, 0, $2, 0, 0, 0);}
     |                                           {$$ = 0;}
     ;
 
@@ -145,7 +139,7 @@ expr: LIT_INTEGER                           {$$ = astCreateTerminal($1);}
     | TK_IDENTIFIER '[' expr ']'            {$$ = astCreate(AST_ARRAY_ELEMENT, $1, $3, 0, 0, 0);}
     | TK_IDENTIFIER '(' listExpr ')'        {$$ = astCreate(AST_FUNCTION_ARGUMENTS, $1, $3, 0, 0, 0);}
     | TK_IDENTIFIER                         {$$ = astCreateTerminal($1);}
-    | KW_READ                               {$$ = 0;}
+    | KW_READ                               {$$ = astCreate(AST_READ, 0, 0, 0, 0, 0);}
     | '(' expr ')'                          {$$ = $2;}
     | expr OPERATOR_DIF expr                {$$ = astCreate(AST_DIF, 0, $1, $3, 0, 0);}
     | expr OPERATOR_EQ expr                 {$$ = astCreate(AST_EQ, 0, $1, $3, 0, 0);}

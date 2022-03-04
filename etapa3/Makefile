@@ -33,7 +33,7 @@ build:
 	make clean --no-print-directory
 	make --no-print-directory
 
-test1:
+test:
 	./$(ETAPA) tests/input.txt output.txt
 	./$(ETAPA) output.txt final.txt      
 	diff output.txt final.txt 
