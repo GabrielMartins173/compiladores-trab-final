@@ -40,15 +40,9 @@ extern int getLineNumber();
 program: decl
     ;
 
-decl: dec closeDecl
-    | decFunction closeFunc
+decl: dec ';' decl
+    | decFunction decl
     |
-    ;
-    
-closeDecl: ';' decl 
-    ;
-
-closeFunc: decl
     ;
 
 decFunction: KW_INT TK_IDENTIFIER '(' parametersList ')' cmd

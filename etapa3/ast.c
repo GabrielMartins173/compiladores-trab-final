@@ -18,16 +18,13 @@ AST *astPrint(AST *node, int level)
 {
    int i;
 
-   if (node ==0 )
+   if (node == 0 )
    {
       return 0;
    }
    for ( i = 0; i < level; i++)
    {
       fprintf(stderr, "  |");
-   }
-   {
-      /* code */
    }
    
    fprintf(stderr, "ast (");
@@ -81,8 +78,8 @@ AST *astPrint(AST *node, int level)
       case AST_DEC_CHAR: fprintf(stderr, "AST_DEC_CHAR"); break;
       case AST_DEC_FLOAT: fprintf(stderr, "AST_DEC_FLOAT"); break;
       case AST_ARRAY: fprintf(stderr, "AST_ARRAY"); break;
-      case AST_LABEL_DECLARATION: fprintf(stderr, "AST_ARRAY"); break;
-      case AST_PARENTHESIS: fprintf(stderr, "AST_ARRAY"); break;
+      case AST_LABEL_DECLARATION: fprintf(stderr, "AST_LABEL_DECLARATION"); break;
+      case AST_PARENTHESIS: fprintf(stderr, "AST_PARENTHESIS"); break;
        
       default: fprintf(stderr, "AST_UNDEFINED"); break;
    }
