@@ -2,8 +2,8 @@
 
 %{
 
+#include "ast.h"
 #include "y.tab.h"    
-#include "hash.h"
 
 int lineNumber = 1;
 int numberOfErrors = 0;
@@ -47,10 +47,6 @@ return                   {return KW_RETURN;}
 <COMMENT>"\n"            {lineNumber++;}
 <COMMENT>.
 %%
-
-#include "y.tab.c"
-#include "hash.c"
-#include "main.c"
 
 int yywrap(){
     running = 0;

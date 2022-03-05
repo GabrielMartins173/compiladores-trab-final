@@ -9,7 +9,7 @@
 
 enum
 {
-   AST_TERMINAL = 1,
+   AST_SYMBOL = 1,
    AST_DECL,
    AST_DECL_FUNC,
    AST_DEC_FUNCTION_INT_PARAM,
@@ -19,14 +19,12 @@ enum
    AST_DEC_FUNCTION_FLOAT,
    AST_DEC_FUNCTION_CHAR,
    AST_PARAMETERS_LIST,
-   AST_DEC_INT,
-   AST_DEC_CHAR,
-   AST_DEC_FLOAT,
+   AST_ARG_INT,
+   AST_ARG_CHAR,
+   AST_ARG_FLOAT,
    AST_FLOAT,
-   AST_ARRAY_FORMAT_INT,
-   AST_ARRAY_FORMAT_CHAR,
-   AST_ARRAY_VALUES_INT,
-   AST_ARRAY_VALUES_CHAR,
+   AST_ARRAY_FORMAT,
+   AST_ARRAY_VALUES,
    AST_LCMD,
    AST_LABEL,
    AST_ATRIBUTION,
@@ -52,7 +50,15 @@ enum
    AST_LESS,
    AST_LIST_EXPR,
    AST_PRINT_VALUES,
-   AST_BLOCK  
+   AST_BLOCK,
+   AST_DEC_INT,
+   AST_DEC_CHAR,
+   AST_DEC_FLOAT,
+   AST_ARRAY,
+   AST_LABEL_DECLARATION,
+   AST_PARENTHESIS,
+   AST_CHAR,
+   AST_INT  
    
 };
 
@@ -66,7 +72,8 @@ typedef struct ast_node
 AST *astCreate(int type, HASH_NODE *symbol, AST* s0, AST* s1, AST* s2, AST* s3);
 AST *astPrint(AST *node, int level);
 
-// Easier way to create terminal symbols
-#define astCreateTerminal(x) astCreate(AST_TERMINAL, x, 0, 0, 0, 0)
+// Alias for creating easilys and compactly an ast_symbol
+#define astCreateSymbol(x) astCreate(AST_SYMBOL, x, 0, 0, 0, 0)
 
-#endif
+
+#endif // AST_HEADR

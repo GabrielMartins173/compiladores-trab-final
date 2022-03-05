@@ -26,11 +26,14 @@ AST *astPrint(AST *node, int level)
    {
       fprintf(stderr, "  |");
    }
+   {
+      /* code */
+   }
    
    fprintf(stderr, "ast (");
    switch (node->type)
    {
-      case AST_TERMINAL: fprintf(stderr, "AST_TERMINAL"); break;
+      case AST_SYMBOL: fprintf(stderr, "AST_SYMBOL"); break;
       case AST_DECL: fprintf(stderr, "AST_DECL"); break;
       case AST_DECL_FUNC: fprintf(stderr, "AST_DECL_FUNC"); break;
       case AST_DEC_FUNCTION_INT_PARAM: fprintf(stderr, "AST_DEC_FUNCTION_INT_PARAM"); break;
@@ -40,14 +43,14 @@ AST *astPrint(AST *node, int level)
       case AST_DEC_FUNCTION_FLOAT: fprintf(stderr, "AST_DEC_FUNCTION_FLOAT"); break;
       case AST_DEC_FUNCTION_CHAR: fprintf(stderr, "AST_DEC_FUNCTION_CHAR"); break;
       case AST_PARAMETERS_LIST: fprintf(stderr, "AST_PARAMETERS_LIST"); break;
-      case AST_DEC_INT: fprintf(stderr, "AST_DEC_INT"); break;
-      case AST_DEC_CHAR: fprintf(stderr, "AST_DEC_CHAR"); break;
-      case AST_DEC_FLOAT: fprintf(stderr, "AST_DEC_FLOAT"); break;
+      case AST_ARG_INT: fprintf(stderr, "AST_ARG_INT"); break;
+      case AST_ARG_CHAR: fprintf(stderr, "AST_ARG_CHAR"); break;
+      case AST_ARG_FLOAT: fprintf(stderr, "AST_ARG_FLOAT"); break;
       case AST_FLOAT: fprintf(stderr, "AST_FLOAT"); break;
-      case AST_ARRAY_FORMAT_INT: fprintf(stderr, "AST_ARRAY_FORMAT_INT"); break;
-      case AST_ARRAY_FORMAT_CHAR: fprintf(stderr, "AST_ARRAY_FORMAT_CHAR"); break;
-      case AST_ARRAY_VALUES_INT: fprintf(stderr, "AST_ARRAY_VALUES_INT"); break;
-      case AST_ARRAY_VALUES_CHAR: fprintf(stderr, "AST_ARRAY_VALUES_CHAR"); break;
+      case AST_INT: fprintf(stderr, "AST_INT"); break;
+      case AST_CHAR: fprintf(stderr, "AST_CHAR"); break;
+      case AST_ARRAY_FORMAT: fprintf(stderr, "AST_ARRAY_FORMAT_CHAR"); break;
+      case AST_ARRAY_VALUES: fprintf(stderr, "AST_ARRAY_VALUES_INT"); break;
       case AST_LCMD: fprintf(stderr, "AST_LCMD"); break;
       case AST_LABEL: fprintf(stderr, "AST_LABEL"); break;
       case AST_ATRIBUTION: fprintf(stderr, "AST_ATRIBUTION"); break;
@@ -74,6 +77,12 @@ AST *astPrint(AST *node, int level)
       case AST_LIST_EXPR: fprintf(stderr, "AST_LIST_EXPR"); break;
       case AST_PRINT_VALUES: fprintf(stderr, "AST_PRINT_VALUES"); break;
       case AST_BLOCK: fprintf(stderr, "AST_BLOCK"); break;
+      case AST_DEC_INT: fprintf(stderr, "AST_DEC_INT"); break;
+      case AST_DEC_CHAR: fprintf(stderr, "AST_DEC_CHAR"); break;
+      case AST_DEC_FLOAT: fprintf(stderr, "AST_DEC_FLOAT"); break;
+      case AST_ARRAY: fprintf(stderr, "AST_ARRAY"); break;
+      case AST_LABEL_DECLARATION: fprintf(stderr, "AST_ARRAY"); break;
+      case AST_PARENTHESIS: fprintf(stderr, "AST_ARRAY"); break;
        
       default: fprintf(stderr, "AST_UNDEFINED"); break;
    }
@@ -86,9 +95,10 @@ AST *astPrint(AST *node, int level)
    {
       fprintf(stderr, ", 0\n");
    }
-
+   
    for (i = 0; i < MAX_SONS; i++)
    {
       astPrint(node->son[i], level+1);
    }
+ 
 }

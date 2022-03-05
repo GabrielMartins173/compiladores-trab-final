@@ -5,18 +5,17 @@ Código baseado na implementação feita pelo professor Marcelo Johann
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "y.tab.h"
+#include "hash.h"
+#include "ast.h"
 #include "decompiler.h"
 
 extern int yylex();
+extern int yyparse();
 extern char *yytext;
 extern FILE *yyin;
 extern AST *Root;
-
-extern int isRunning();
 extern int getLineNumber();
 extern int getNumberOfErrors();
-extern void printHashTable();
 extern void initMe();
 
 int main(int argc, char **argv)
@@ -47,7 +46,7 @@ int main(int argc, char **argv)
 
   yyparse();
 
-  printHashTable();
+  astPrint(Root,0);
 
   decompile(Root, fp);
 

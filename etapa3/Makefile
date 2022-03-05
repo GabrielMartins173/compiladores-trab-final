@@ -34,14 +34,14 @@ build:
 	make --no-print-directory
 
 test:
-	./$(ETAPA) tests/input.txt output.txt
-	./$(ETAPA) output.txt final.txt      
-	diff output.txt final.txt 
+	./$(ETAPA) tests/input.txt tests/output.txt
+	./$(ETAPA) tests/output.txt tests/final.txt      
+	diff tests/output.txt tests/final.txt 
 
 test2:
-	./$(ETAPA) tests/input2.txt output2.txt
-	./$(ETAPA) output2.txt final2.txt      
-	diff output2.txt final2.txt  
+	./$(ETAPA) tests/input2.txt tests/output2.txt
+	./$(ETAPA) tests/output2.txt tests/final2.txt      
+	diff tests/output2.txt tests/final2.txt  
 
 tar:
 	tar cvzf $(ETAPA).tgz .
