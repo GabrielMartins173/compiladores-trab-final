@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ast.h"
+
 int yyerror();
 int yylex();
 extern int getLineNumber();
@@ -19,7 +20,6 @@ AST *Root;
 %token KW_CHAR           
 %token KW_INT            
 %token KW_FLOAT          
-
 %token KW_IF             
 %token KW_THEN           
 %token KW_ELSE           
@@ -28,14 +28,12 @@ AST *Root;
 %token KW_READ           
 %token KW_PRINT          
 %token KW_RETURN         
-
 %token OPERATOR_LE       
 %token OPERATOR_GE       
 %token OPERATOR_EQ       
 %token OPERATOR_DIF      
 
 %token<symbol> TK_IDENTIFIER     
-
 %token<symbol> LIT_INTEGER       
 %token<symbol> LIT_CHAR          
 %token<symbol> LIT_STRING    
@@ -120,7 +118,7 @@ lcmd: cmd ';' lcmd          {$$ = astCreate(AST_LCMD, 0, $1, $3, 0, 0);}
     |                       {$$ = 0;}
     ;
 
-label: TK_IDENTIFIER ':'    {$$ = astCreate(AST_LABEL_DECLARATION, 0, astCreateSymbol($1), 0, 0, 0);}
+label: TK_IDENTIFIER ':'    {$$ = astCreateSymbol($1);}
     ;
 
 cmd:  TK_IDENTIFIER '=' expr                    {$$ = astCreate(AST_ATRIBUTION, 0, astCreateSymbol($1), $3, 0, 0);}
@@ -159,10 +157,10 @@ listExpr: expr ',' listExpr         {$$ = astCreate(AST_LIST_EXPR, 0, $1, $3, 0,
     ; 
 
 printValues: printParameter ',' printValues     {$$ = astCreate(AST_PRINT_VALUES, 0, $1, $3, 0, 0);}
-    | printParameter                            {$$ = $1;}
+    | printParameter                            {$$ = astCreate(AST_PRINT_VALUES, 0, $1, 0, 0, 0);}
     ;
 
-printParameter: LIT_STRING      {astCreateSymbol($1);}
+printParameter: LIT_STRING      {$$ = astCreateSymbol($1);}
     | expr                      {$$ = $1;}
     ;
 

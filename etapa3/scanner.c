@@ -864,22 +864,22 @@ YY_RULE_SETUP
 case 17:
 YY_RULE_SETUP
 #line 35 "scanner.l"
-{hashInsert(yytext, LIT_INTEGER); return LIT_INTEGER;}
+{ yylval.symbol = hashInsert(yytext, LIT_INTEGER); return LIT_INTEGER;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 36 "scanner.l"
-{return TK_IDENTIFIER;}
+{ yylval.symbol = hashInsert(yytext, TK_IDENTIFIER); return TK_IDENTIFIER;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 37 "scanner.l"
-{hashInsert(yytext, LIT_CHAR); return LIT_CHAR;}
+{ yylval.symbol = hashInsert(yytext, LIT_CHAR); return LIT_CHAR;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 38 "scanner.l"
-{hashInsert(yytext, LIT_STRING); return LIT_STRING;}
+{ yylval.symbol = hashInsert(yytext, LIT_STRING); return LIT_STRING; }
 	YY_BREAK
 case 21:
 /* rule 21 can match eol */

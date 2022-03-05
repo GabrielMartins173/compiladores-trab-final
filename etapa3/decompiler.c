@@ -8,7 +8,7 @@ void decompile_AST_SYMBOL(AST *node, FILE* outputFile)
 void decompile_AST_DECL(AST *node, FILE* outputFile) 
 {
     decompile(node->son[0], outputFile);
-    fprintf(outputFile, ";\n");
+    fprintf(outputFile, "; \n");
     decompile(node->son[1], outputFile);
 }
 
@@ -22,178 +22,172 @@ void decompile_AST_DECL_FUNC(AST *node, FILE* outputFile)
 void decompile_AST_DEC_FUNCTION_INT_PARAM(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "int ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     fprintf(outputFile, "(");
     decompile(node->son[1], outputFile);
-    fprintf(outputFile, ") ");
+    fprintf(outputFile, ")");
     decompile(node->son[2], outputFile);
 }  
 
 void decompile_AST_DEC_FUNCTION_FLOAT_PARAM(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "float ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     fprintf(outputFile, "(");
     decompile(node->son[1], outputFile);
-    fprintf(outputFile, ") ");
+    fprintf(outputFile, ")");
     decompile(node->son[2], outputFile);
 }  
 
 void decompile_AST_DEC_FUNCTION_CHAR_PARAM(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "char ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     fprintf(outputFile, "(");
     decompile(node->son[1], outputFile);
-    fprintf(outputFile, ") ");
+    fprintf(outputFile, ")");
     decompile(node->son[2], outputFile);
 }
 
 void decompile_AST_DEC_FUNCTION_INT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "int ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, "() ");
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
+    fprintf(outputFile, "()");
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_DEC_FUNCTION_FLOAT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "float ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, "() ");
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
+    fprintf(outputFile, "()");
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_DEC_FUNCTION_CHAR(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "char ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, "() ");
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
+    fprintf(outputFile, "()");
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_PARAMETERS_LIST(AST *node, FILE* outputFile)
 {
     decompile(node->son[0], outputFile);
-    fprintf(outputFile, ", ");
+    fprintf(outputFile, ",");
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_ARG_INT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "int ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
 }
 
 void decompile_AST_ARG_CHAR(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "char ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
 }
 
 void decompile_AST_ARG_FLOAT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "float ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
 } 
 
 void decompile_AST_DEC_INT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "int ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_DEC_CHAR(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "char ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_DEC_FLOAT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "float ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_INT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, ":");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
 }
 
 void decompile_AST_CHAR(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, ":");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
 }
 
 void decompile_AST_FLOAT(AST *node, FILE* outputFile)
 {
-    fprintf(outputFile, ": ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, ":");
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     fprintf(outputFile, "/");
-    decompile_AST_SYMBOL(node->son[1], outputFile);
+    fprintf(outputFile, "%s", node->son[1]->symbol->text);
 } 
 
 void decompile_AST_ARRAY_FORMAT(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "[");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, "] :");
-    decompile_AST_SYMBOL(node->son[1], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
+    fprintf(outputFile, "]:");
+    fprintf(outputFile, "%s", node->son[1]->symbol->text);
     decompile(node->son[2], outputFile);
 }
 
 void decompile_AST_ARRAY(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "[");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     fprintf(outputFile, "]");
 }
 
 void decompile_AST_ARRAY_VALUES(AST *node, FILE* outputFile)
 {
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_LCMD(AST *node, FILE* outputFile) 
 {
     decompile(node->son[0], outputFile);
-    fprintf(outputFile, "; \n}");
+    fprintf(outputFile, "; \n");
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_LABEL(AST *node, FILE* outputFile)
 {
     decompile(node->son[0], outputFile);
-    fprintf(outputFile, ": \n ");
+    fprintf(outputFile, ": \n");
     decompile(node->son[1], outputFile);
-}
-
-void decompile_AST_LABEL_DECLARATION(AST *node, FILE* outputFile)
-{
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, " :");
 }
 
 void decompile_AST_ATRIBUTION(AST *node, FILE* outputFile) 
 {
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
     fprintf(outputFile, " = ");
     decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_VEC_ATRIBUTION(AST *node, FILE* outputFile)
 {
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, "[ ");
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
+    fprintf(outputFile, "[");
     decompile(node->son[1], outputFile);
-    fprintf(outputFile, " ] = ");
+    fprintf(outputFile, "] = ");
     decompile(node->son[2], outputFile);
 }
 
@@ -214,9 +208,9 @@ void decompile_AST_IF_THEN_ELSE(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "if ");
     decompile(node->son[0], outputFile);
-    fprintf(outputFile, " \n then \n ");
+    fprintf(outputFile, " \nthen \n ");
     decompile(node->son[1], outputFile);
-    fprintf(outputFile, " else \n ");
+    fprintf(outputFile, "else \n ");
     decompile(node->son[2], outputFile);
 }
 
@@ -224,14 +218,14 @@ void decompile_AST_IF_THEN(AST *node, FILE* outputFile)
 {
     fprintf(outputFile, "if ");
     decompile(node->son[0], outputFile);
-    fprintf(outputFile, " \n  then \n ");
+    fprintf(outputFile, " \nthen \n ");
     decompile(node->son[1], outputFile);
 } 
 
 void decompile_AST_GOTO(AST *node, FILE* outputFile) 
 {
     fprintf(outputFile, "goto ");
-    decompile_AST_SYMBOL(node->son[0], outputFile);
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
 }
 
 void decompile_AST_RETURN(AST *node, FILE* outputFile) 
@@ -250,18 +244,18 @@ void decompile_AST_BLOCK(AST *node, FILE* outputFile)
 
 void decompile_AST_ARRAY_ELEMENT(AST *node, FILE* outputFile)
 {
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, "[ ");
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
+    fprintf(outputFile, "[");
     decompile(node->son[1], outputFile);
-    fprintf(outputFile, " ]");
+    fprintf(outputFile, "]");
 }
 
 void decompile_AST_FUNCTION_ARGUMENTS(AST *node, FILE* outputFile)
 {
-    decompile_AST_SYMBOL(node->son[0], outputFile);
-    fprintf(outputFile, "( ");
+    fprintf(outputFile, "%s", node->son[0]->symbol->text);
+    fprintf(outputFile, "(");
     decompile(node->son[1], outputFile);
-    fprintf(outputFile, " )");
+    fprintf(outputFile, ")");
 }
 
 void decompile_AST_READ(AST *node, FILE* outputFile) 
@@ -313,8 +307,9 @@ void decompile_AST_ADD(AST *node, FILE* outputFile)
 
 void decompile_AST_SUB(AST *node, FILE* outputFile) 
 {
-    fprintf(outputFile, " - ");
     decompile(node->son[0], outputFile);
+    fprintf(outputFile, " - ");
+    decompile(node->son[1], outputFile);
 }
 
 void decompile_AST_MULT(AST *node, FILE* outputFile) 
@@ -347,16 +342,26 @@ void decompile_AST_LESS(AST *node, FILE* outputFile)
 
 void decompile_AST_LIST_EXPR(AST *node, FILE* outputFile)
 {
-    decompile(node->son[0], outputFile);
-    fprintf(outputFile, " , ");
-    decompile(node->son[1], outputFile);
+    if(node->son[1] != 0){
+        decompile(node->son[0], outputFile);  
+        fprintf(outputFile, " , ");
+        decompile(node->son[1], outputFile);
+    }
+    else{
+        decompile(node->son[0], outputFile); 
+    }
 }
 
 void decompile_AST_PRINT_VALUES(AST *node, FILE* outputFile)
 {
-    decompile(node->son[0], outputFile);
-    fprintf(outputFile, " , ");
-    decompile(node->son[1], outputFile);
+    if(node->son[1] != 0){
+        decompile(node->son[0], outputFile);  
+        fprintf(outputFile, " , ");
+        decompile(node->son[1], outputFile);
+    }
+    else{
+        decompile(node->son[0], outputFile); 
+    }
 }
 
 //Decompile functions END
@@ -400,6 +405,10 @@ void decompile(AST* node, FILE *outputFile)
 
         case AST_DEC_FUNCTION_CHAR: 
             decompile_AST_DEC_FUNCTION_CHAR(node,outputFile);
+            break;
+
+        case AST_DEC_FUNCTION_FLOAT: 
+            decompile_AST_DEC_FUNCTION_FLOAT(node,outputFile);
             break;
 
         case AST_PARAMETERS_LIST: 
@@ -548,10 +557,6 @@ void decompile(AST* node, FILE *outputFile)
 
         case AST_ARRAY: 
             decompile_AST_ARRAY(node,outputFile);
-            break;
-
-        case AST_LABEL_DECLARATION: 
-            decompile_AST_LABEL_DECLARATION(node,outputFile);
             break;
 
         case AST_PARENTHESIS: 

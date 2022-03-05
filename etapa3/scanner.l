@@ -32,10 +32,10 @@ return                   {return KW_RETURN;}
 "!="                     {return OPERATOR_DIF;}
 
 [-+*/<>=,;:(){}\[\]]     {return yytext[0];}
-[0-9]+                   {hashInsert(yytext, LIT_INTEGER); return LIT_INTEGER;}
-[a-z_-]+                 {return TK_IDENTIFIER;}
-'.'                      {hashInsert(yytext, LIT_CHAR); return LIT_CHAR;}
-\"((\\\")|([^\"\n]))+\"  {hashInsert(yytext, LIT_STRING); return LIT_STRING;}
+[0-9]+                   { yylval.symbol = hashInsert(yytext, LIT_INTEGER); return LIT_INTEGER;}
+[a-z_-]+                 { yylval.symbol = hashInsert(yytext, TK_IDENTIFIER); return TK_IDENTIFIER;}
+\'.\'                    { yylval.symbol = hashInsert(yytext, LIT_CHAR); return LIT_CHAR;}
+\"([^"\n]|\\\")+\"       { yylval.symbol = hashInsert(yytext, LIT_STRING); return LIT_STRING; }
 
 "\n"                     {lineNumber++;}
 

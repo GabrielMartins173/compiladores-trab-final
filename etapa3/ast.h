@@ -55,7 +55,6 @@ enum
    AST_DEC_CHAR,
    AST_DEC_FLOAT,
    AST_ARRAY,
-   AST_LABEL_DECLARATION,
    AST_PARENTHESIS,
    AST_CHAR,
    AST_INT  
@@ -71,9 +70,7 @@ typedef struct ast_node
 
 AST *astCreate(int type, HASH_NODE *symbol, AST* s0, AST* s1, AST* s2, AST* s3);
 AST *astPrint(AST *node, int level);
-
-// Alias for creating easilys and compactly an ast_symbol
-#define astCreateSymbol(x) astCreate(AST_SYMBOL, x, 0, 0, 0, 0)
+AST *astCreateSymbol (HASH_NODE *symbol);
 
 
 #endif // AST_HEADR

@@ -14,6 +14,18 @@ AST *astCreate(int type, HASH_NODE *symbol, AST* s0, AST* s1, AST* s2, AST* s3)
    return newnode;
 }
 
+AST *astCreateSymbol(HASH_NODE *symbol) 
+{
+   AST * newnode = (AST*) calloc(1, sizeof(AST));
+   newnode->type = AST_SYMBOL;
+   newnode->symbol = symbol;
+   newnode->son[0] = 0;
+   newnode->son[1] = 0;
+   newnode->son[2] = 0;
+   newnode->son[3] = 0;
+   return newnode;
+}
+
 AST *astPrint(AST *node, int level) 
 {
    int i;
@@ -78,19 +90,18 @@ AST *astPrint(AST *node, int level)
       case AST_DEC_CHAR: fprintf(stderr, "AST_DEC_CHAR"); break;
       case AST_DEC_FLOAT: fprintf(stderr, "AST_DEC_FLOAT"); break;
       case AST_ARRAY: fprintf(stderr, "AST_ARRAY"); break;
-      case AST_LABEL_DECLARATION: fprintf(stderr, "AST_LABEL_DECLARATION"); break;
       case AST_PARENTHESIS: fprintf(stderr, "AST_PARENTHESIS"); break;
        
-      default: fprintf(stderr, "AST_UNDEFINED"); break;
+      default: fprintf(stderr, "AST_UNDEFINED)\n"); break;
    }
 
    if (node->symbol!=0)
    {
-      fprintf(stderr, ", %s\n", node->symbol->text);
+      fprintf(stderr, ", %s)\n", node->symbol->text);
    }
    else
    {
-      fprintf(stderr, ", 0\n");
+      fprintf(stderr, ", 0)\n");
    }
    
    for (i = 0; i < MAX_SONS; i++)
