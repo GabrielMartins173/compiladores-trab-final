@@ -1,6 +1,9 @@
 //Autor: Professor Marcelo Johann
 
 #include "hash.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 HASH_NODE*Table[HASH_SIZE];
 
@@ -44,6 +47,7 @@ HASH_NODE *hashInsert(char *text, int type)
     strcpy(newnode -> text, text);
     newnode -> next = Table[address];
     Table[address] = newnode;
+    return newnode;
 }
 
 void hashPrint(void)

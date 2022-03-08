@@ -1,6 +1,8 @@
 // AST - Abstract Syntax Tree
 
 #include "ast.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 AST *astCreate(int type, HASH_NODE *symbol, AST* s0, AST* s1, AST* s2, AST* s3) 
 {
@@ -16,14 +18,7 @@ AST *astCreate(int type, HASH_NODE *symbol, AST* s0, AST* s1, AST* s2, AST* s3)
 
 AST *astCreateSymbol(HASH_NODE *symbol) 
 {
-   AST * newnode = (AST*) calloc(1, sizeof(AST));
-   newnode->type = AST_SYMBOL;
-   newnode->symbol = symbol;
-   newnode->son[0] = 0;
-   newnode->son[1] = 0;
-   newnode->son[2] = 0;
-   newnode->son[3] = 0;
-   return newnode;
+   return astCreate(AST_SYMBOL, symbol, 0, 0, 0, 0);
 }
 
 AST *astPrint(AST *node, int level) 

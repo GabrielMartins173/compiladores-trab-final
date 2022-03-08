@@ -3,10 +3,6 @@
 #ifndef HASH_HEADER
 #define HASH_HEADER
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #define HASH_SIZE 997
 
 typedef struct hash_node
