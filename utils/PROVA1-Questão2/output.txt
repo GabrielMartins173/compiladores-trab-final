@@ -1,0 +1,33 @@
+Key: 123 is present at language A
+Key: _testLiteral1Language B is present at language B
+Key: 0x23A is present at language B
+
+ERROR at line 6 -> Trying to use something from language A inside scope of language B 
+Key: testingLiteralLanguageA is present at language A
+
+ERROR at line 10 -> Trying to use something from language B inside scope of language A 
+
+ERROR at line 12 -> Trying to use something from language B inside scope of language A 
+
+INVALID INPUT: * 
+
+INVALID INPUT: * 
+
+INVALID INPUT: ( 
+
+INVALID INPUT: & 
+
+INVALID INPUT: ! 
+
+INVALID INPUT: * 
+
+INVALID INPUT: @ 
+
+INVALID INPUT: * 
+
+INVALID INPUT: ) 
+
+
+Number of Lines on the File: 12
+
+Number of Non Recognized elements on the File: 9

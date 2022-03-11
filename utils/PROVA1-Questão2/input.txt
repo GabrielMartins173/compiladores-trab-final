@@ -1,0 +1,12 @@
+123
+
+#{
+_testLiteral1Language B
+0x23A
+12345
+#}
+
+testingLiteralLanguageA
+0x23A
+
+non Recognized expression at all **(&!*@*)
