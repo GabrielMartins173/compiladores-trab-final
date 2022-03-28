@@ -1,0 +1,59 @@
+int main() x = 1 + b
+
+int main()
+int main(){;}
+
+\\int main(); \\ERRO DEC FUNC
+\\int main(){}; \\ERRO DEC FUNC 2
+\\a : 1 \\ ERRO DEC VAR
+
+int main(){a = 1 + 1;}
+
+\\int main(){a = a + b} CASO DE ERRO
+
+float testing_t(char a, int b)
+    if len(a) - len(b) == 10
+        then 
+            return a[b]
+        else     
+            print "error during execution!!!"
+
+
+int main(int x, char y, float z){}
+
+\\int main(int x, char y, ){} \\CASO DE ERRO
+
+int empty-function(){
+
+    {
+        ;;;
+    };
+    
+}
+
+int test-while_if(int x, int y, int z){
+    while (1 == 1) {
+        if 2 == 2 then {
+            x = 1;
+        }
+        else {
+            x = x + 1;
+            y = z + x;
+        };
+    };
+
+    return x;
+}
+
+\\int test-while_with_error(int x, int y, int z){while (1 == 1) {}}
+
+char c: 'x';
+char d: 100;
+int a: 'A';
+int i: 1;
+int v[10]: 'a' 0 0 0 0 0 0 0 0 0;
+int matrix[100];
+float f:2/3;
+\\int erro: 1
+
+\\ END OF TEST FILE
