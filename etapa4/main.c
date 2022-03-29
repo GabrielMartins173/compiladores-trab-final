@@ -8,6 +8,7 @@ Código baseado na implementação feita pelo professor Marcelo Johann
 #include "hash.h"
 #include "ast.h"
 #include "decompiler.h"
+#include "semantic.h"
 
 extern int yylex();
 extern int yyparse();
@@ -48,7 +49,12 @@ int main(int argc, char **argv)
 
   astPrint(Root,0);
 
-  int semanticErrorsFound = 0;
+  int semanticErrorsFound = getSemanticErrors();
+
+  if(semanticErrorsFound > 0){
+    printf("Compilation Failed due to Semantic Errors \n");
+    exit(4);
+  }
 
   decompile(Root, fp);
 

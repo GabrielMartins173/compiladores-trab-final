@@ -57,9 +57,9 @@ void hashPrint(void)
             printf("Table[%d] has %s\n", i, node->text);
 }
 
-int hashVerifyUndefined(void)
+int hashCheckUndeclared(void)
 {
-    int undefined = 0;
+    int undeclared = 0;
     HASH_NODE *node;
 
     for (int i = 0; i < HASH_SIZE; i++)
@@ -68,10 +68,30 @@ int hashVerifyUndefined(void)
         {
             if (node->type == SYMBOL_TK_IDENTIFIER)
             {
-                printf("SEMANTIC ERROR!! The following identifier %s is undefined\n", node->text);
-                undefined++;
+                printf("SEMANTIC ERROR!! The following identifier %s is undeclared\n", node->text);
+                undeclared++;
             }
         }
     }
-    return undefined;
+    return undeclared;
+}
+
+void hashInsertFuncParameter(FUNC_PARAMETER *newParameter, HASH_NODE *func)
+{
+    if (!func->parameter)
+    {
+        func->parameter = newParameter;
+    }
+    else
+    {
+        FUNC_PARAMETER *currentParameter = func->parameter;
+        while (currentParameter->next)
+        {
+            currentParameter = currentParameter->next;
+        }
+        currentParameter->next = newParameter;
+    }
+
+    func->quantityOfFuncParameters++;
+    fprintf(stderr, "\n");
 }

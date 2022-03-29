@@ -3,19 +3,22 @@
 
 #include "hash.h"
 #include "ast.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-#define TRUE 1
-#define FALSE 0
+extern int semanticErrors;
+static int returnType;
 
-int getNumberOfSemanticErrors();
-int isValidOperand(AST *node);
-int isValidDeclaration(AST *node);
-void verifyUndefined();
-void verifyDeclarations(AST *node);
-void setDataType(AST *node);
-void verifyOperands(AST *node);
-void printErrorDuringDeclaration(AST *node, char* errorMessage);
-void printErrorDuringOperation(AST *node, char* operand, char* operation);
-
+void checkAndSetDeclarations(AST *node);
+void checkUndeclared();
+int getSemanticErrors();
+void updateDeclarationType(AST *son, AST *parent);
+int checkExpr(AST *node);
+int checkSymbol(HASH_NODE *node);
+int checkIsEscalar(int expr);
+void checkCommandsType(AST *node);
+int isCompatibleTypes(int identifierType, int exprType);
+void checkReturnType(AST *node, int funcType);
+void updateParameterList(AST *son, HASH_NODE *func);
 
 #endif

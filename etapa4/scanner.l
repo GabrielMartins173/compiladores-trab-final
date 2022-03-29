@@ -32,7 +32,7 @@ return                   {return KW_RETURN;}
 "!="                     {return OPERATOR_DIF;}
 
 [-+*/<>=,;:(){}\[\]]     {return yytext[0];}
-[0-9]+                   { yylval.symbol = hashInsert(yytext, SYMBOL_LIT_INT); return LIT_INTEGER;}
+[0-9]+                   { yylval.symbol = hashInsert(yytext, SYMBOL_LIT_INTEGER); return LIT_INTEGER;}
 [a-z_-]+                 { yylval.symbol = hashInsert(yytext, SYMBOL_TK_IDENTIFIER); return TK_IDENTIFIER;}
 \'.\'                    { yylval.symbol = hashInsert(yytext, SYMBOL_LIT_CHAR); return LIT_CHAR;}
 \"([^"\n]|\\\")+\"       { yylval.symbol = hashInsert(yytext, SYMBOL_LIT_STRING); return LIT_STRING; }

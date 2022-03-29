@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ast.h"
+#include "semantic.h"
 
 int yyerror();
 int yylex();
