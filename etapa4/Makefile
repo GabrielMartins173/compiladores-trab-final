@@ -46,6 +46,11 @@ test2:
 	./$(ETAPA) tests/output2.txt tests/final2.txt      
 	diff tests/output2.txt tests/final2.txt  
 
+test3:
+	./$(ETAPA) tests/input3.txt tests/output3.txt
+	./$(ETAPA) tests/output3.txt tests/final3.txt      
+	diff tests/output3.txt tests/final3.txt  
+
 tar:
 	tar cvzf $(ETAPA).tgz .
 
