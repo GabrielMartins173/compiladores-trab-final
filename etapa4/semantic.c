@@ -5,6 +5,91 @@ static int returnType = 0;
 
 void checkAndSetDeclarations(AST *node)
 {
+    int i;
+
+    if (node == 0)
+        return;
+
+    if (node->symbol)
+    {
+        if ((node->symbol->type != SYMBOL_TK_IDENTIFIER) && (node->type == AST_DECL || node->type == AST_DECL_FUNC || node->type == AST_DEC_FUNCTION_INT_PARAM || node->type == AST_DEC_FUNCTION_FLOAT_PARAM || node->type == AST_DEC_FUNCTION_CHAR_PARAM || node->type == AST_DEC_FUNCTION_INT || node->type == AST_DEC_FUNCTION_FLOAT || node->type == AST_DEC_FUNCTION_CHAR || node->type == AST_DEC_INT || node->type == AST_DEC_CHAR || node->type == AST_DEC_FLOAT || node->type == AST_ARRAY_FORMAT || node->type == AST_ARRAY || node->type == AST_ARRAY_VALUES))
+        {
+            fprintf(stderr, "Semantic Error Found: Variable %s is redeclered \n", node->symbol->text);
+            numberOfSemanticErrors++;
+        }
+
+        switch (node->type)
+        {
+        case AST_DECL:
+        case AST_PARAMETERS_LIST:
+        case AST_ARG_INT:
+        case AST_ARG_FLOAT:
+        case AST_ARG_CHAR:
+        case AST_DEC_INT:
+        case AST_DEC_CHAR:
+        case AST_DEC_FLOAT:
+        case AST_LIST_EXPR:
+        case AST_PRINT_VALUES:
+            node->symbol->type = SYMBOL_VARIABLE;
+            updateDeclarationType(node->son[0], node);
+            break;
+
+        case AST_DECL_FUNC:
+        case AST_DEC_FUNCTION_INT_PARAM:
+        case AST_DEC_FUNCTION_FLOAT_PARAM:
+        case AST_DEC_FUNCTION_CHAR_PARAM:
+        case AST_DEC_FUNCTION_INT:
+        case AST_DEC_FUNCTION_FLOAT:
+        case AST_DEC_FUNCTION_CHAR:
+        {
+            node->symbol->type = SYMBOL_FUNCTION;
+            updateDeclarationType(node->son[1], node);
+            updateParameterList(node->son[0], node->symbol);
+
+            returnType = 0;
+            checkReturnType(node->son[2], node->symbol->datatype);
+
+            if (returnType != node->symbol->datatype && returnType != 0)
+            {
+                fprintf(stderr, "Semantic Error Found: Function %s with type DATA_TYPE_%i has wrong return with type DATA_TYPE_%i \n", node->symbol->text, node->symbol->datatype, returnType);
+                numberOfSemanticErrors++;
+            }
+
+            break;
+        }
+
+        case AST_ARRAY_FORMAT:
+        case AST_ARRAY:
+        case AST_ARRAY_VALUES:
+            node->symbol->type = SYMBOL_VECTOR;
+            updateDeclarationType(node->son[0], node);
+            break;
+
+        case AST_SYMBOL:
+        {
+            switch (node->symbol->type)
+            {
+            case SYMBOL_LIT_CHAR:
+                node->symbol->datatype = DATATYPE_CHAR;
+                break;
+            case SYMBOL_LIT_FLOAT:
+                node->symbol->datatype = DATATYPE_FLOAT;
+                break;
+            case SYMBOL_LIT_INTEGER:
+                node->symbol->datatype = DATATYPE_INT;
+                break;
+            case SYMBOL_LIT_STRING:
+                node->symbol->datatype = DATATYPE_STRING;
+                break;
+            }
+        }
+        }
+    }
+
+    for (i = 0; i < MAX_SONS; i++)
+    {
+        checkAndSetDeclarations(node->son[i]);
+    }
 }
 
 void checkCommandsType(AST *node)
