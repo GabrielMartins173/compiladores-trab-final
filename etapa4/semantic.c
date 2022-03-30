@@ -10,15 +10,15 @@ void checkAndSetDeclarations(AST *node)
     if (node == 0)
         return;
 
-    if (node->symbol)
+    if (node->son[0]->son[0]->symbol)
     {
-        if ((node->symbol->type != SYMBOL_TK_IDENTIFIER) && (node->type == AST_DECL || node->type == AST_DECL_FUNC || node->type == AST_DEC_FUNCTION_INT_PARAM || node->type == AST_DEC_FUNCTION_FLOAT_PARAM || node->type == AST_DEC_FUNCTION_CHAR_PARAM || node->type == AST_DEC_FUNCTION_INT || node->type == AST_DEC_FUNCTION_FLOAT || node->type == AST_DEC_FUNCTION_CHAR || node->type == AST_DEC_INT || node->type == AST_DEC_CHAR || node->type == AST_DEC_FLOAT || node->type == AST_ARRAY_FORMAT || node->type == AST_ARRAY || node->type == AST_ARRAY_VALUES))
+        if ((node->son[0]->son[0]->symbol->type != SYMBOL_TK_IDENTIFIER) && (node->son[0]->son[0]->type == AST_DECL || node->son[0]->son[0]->type == AST_DECL_FUNC || node->son[0]->son[0]->type == AST_DEC_FUNCTION_INT_PARAM || node->son[0]->son[0]->type == AST_DEC_FUNCTION_FLOAT_PARAM || node->son[0]->son[0]->type == AST_DEC_FUNCTION_CHAR_PARAM || node->son[0]->son[0]->type == AST_DEC_FUNCTION_INT || node->son[0]->son[0]->type == AST_DEC_FUNCTION_FLOAT || node->son[0]->son[0]->type == AST_DEC_FUNCTION_CHAR || node->son[0]->son[0]->type == AST_DEC_INT || node->son[0]->son[0]->type == AST_DEC_CHAR || node->son[0]->son[0]->type == AST_DEC_FLOAT || node->son[0]->son[0]->type == AST_ARRAY_FORMAT || node->son[0]->son[0]->type == AST_ARRAY || node->son[0]->son[0]->type == AST_ARRAY_VALUES))
         {
-            fprintf(stderr, "Semantic Error Found: Variable %s is redeclered \n", node->symbol->text);
+            fprintf(stderr, "Semantic Error Found: Variable %s is redeclared \n", node->son[0]->son[0]->symbol->text);
             numberOfSemanticErrors++;
         }
 
-        switch (node->type)
+        switch (node->son[0]->son[0]->type)
         {
         case AST_DECL:
         case AST_PARAMETERS_LIST:
@@ -30,8 +30,8 @@ void checkAndSetDeclarations(AST *node)
         case AST_DEC_FLOAT:
         case AST_LIST_EXPR:
         case AST_PRINT_VALUES:
-            node->symbol->type = SYMBOL_VARIABLE;
-            updateDeclarationType(node->son[0], node);
+            node->son[0]->son[0]->symbol->type = SYMBOL_VARIABLE;
+            updateDeclarationType(node->son[0]->son[0]->son[0], node);
             break;
 
         case AST_DECL_FUNC:
@@ -42,16 +42,16 @@ void checkAndSetDeclarations(AST *node)
         case AST_DEC_FUNCTION_FLOAT:
         case AST_DEC_FUNCTION_CHAR:
         {
-            node->symbol->type = SYMBOL_FUNCTION;
-            updateDeclarationType(node->son[1], node);
-            updateParameterList(node->son[0], node->symbol);
+            node->son[0]->son[0]->symbol->type = SYMBOL_FUNCTION;
+            updateDeclarationType(node->son[0]->son[0]->son[1], node);
+            updateParameterList(node->son[0]->son[0]->son[0], node->symbol);
 
             returnType = 0;
-            checkReturnType(node->son[2], node->symbol->datatype);
+            checkReturnType(node->son[0]->son[0]->son[2], node->son[0]->son[0]->symbol->datatype);
 
-            if (returnType != node->symbol->datatype && returnType != 0)
+            if (returnType != node->son[0]->son[0]->symbol->datatype && returnType != 0)
             {
-                fprintf(stderr, "Semantic Error Found: Function %s with type DATA_TYPE_%i has wrong return with type DATA_TYPE_%i \n", node->symbol->text, node->symbol->datatype, returnType);
+                fprintf(stderr, "Semantic Error Found: Function %s with type DATA_TYPE_%i has wrong return with type DATA_TYPE_%i \n", node->son[0]->son[0]->symbol->text, node->son[0]->son[0]->symbol->datatype, returnType);
                 numberOfSemanticErrors++;
             }
 
@@ -61,25 +61,25 @@ void checkAndSetDeclarations(AST *node)
         case AST_ARRAY_FORMAT:
         case AST_ARRAY:
         case AST_ARRAY_VALUES:
-            node->symbol->type = SYMBOL_VECTOR;
-            updateDeclarationType(node->son[0], node);
+            node->son[0]->son[0]->symbol->type = SYMBOL_VECTOR;
+            updateDeclarationType(node->son[0]->son[0]->son[0], node);
             break;
 
         case AST_SYMBOL:
         {
-            switch (node->symbol->type)
+            switch (node->son[0]->son[0]->symbol->type)
             {
             case SYMBOL_LIT_CHAR:
-                node->symbol->datatype = DATATYPE_CHAR;
+                node->son[0]->son[0]->symbol->datatype = DATATYPE_CHAR;
                 break;
             case SYMBOL_LIT_FLOAT:
-                node->symbol->datatype = DATATYPE_FLOAT;
+                node->son[0]->son[0]->symbol->datatype = DATATYPE_FLOAT;
                 break;
             case SYMBOL_LIT_INTEGER:
-                node->symbol->datatype = DATATYPE_INT;
+                node->son[0]->son[0]->symbol->datatype = DATATYPE_INT;
                 break;
             case SYMBOL_LIT_STRING:
-                node->symbol->datatype = DATATYPE_STRING;
+                node->son[0]->son[0]->symbol->datatype = DATATYPE_STRING;
                 break;
             }
         }
@@ -88,7 +88,7 @@ void checkAndSetDeclarations(AST *node)
 
     for (i = 0; i < MAX_SONS; i++)
     {
-        checkAndSetDeclarations(node->son[i]);
+        checkAndSetDeclarations(node->son[0]->son[0]->son[i]);
     }
 }
 
@@ -100,21 +100,21 @@ void checkCommandsType(AST *node)
     if (node == 0)
         return;
 
-    switch (node->type)
+    switch (node->son[0]->son[0]->type)
     {
     case AST_ATRIBUTION:
     {
-        int identifierType = checkSymbol(node->symbol);
-        int exprType = checkExpr(node->son[0]);
+        int identifierType = checkSymbol(node->son[0]->son[0]->symbol);
+        int exprType = checkExpr(node->son[0]->son[0]->son[0]);
 
         if (!(checkIsEscalar(identifierType) && checkIsEscalar(exprType)))
         {
-            fprintf(stderr, "Semantic Error Found: Variable %s of type DATA_TYPE_%i has wrong assigned type of %i \n", node->symbol->text, identifierType, exprType);
+            fprintf(stderr, "Semantic Error Found: Variable %s of type DATA_TYPE_%i has wrong assigned type of %i \n", node->son[0]->son[0]->symbol->text, identifierType, exprType);
             numberOfSemanticErrors++;
         }
-        else if (node->symbol->type != SYMBOL_VARIABLE)
+        else if (node->son[0]->son[0]->symbol->type != SYMBOL_VARIABLE)
         {
-            fprintf(stderr, "Semantic Error Found: Identifier %s of type DATA_TYPE_%i is not a variable \n", node->symbol->text, identifierType);
+            fprintf(stderr, "Semantic Error Found: Identifier %s of type DATA_TYPE_%i is not a variable \n", node->son[0]->son[0]->symbol->text, identifierType);
             numberOfSemanticErrors++;
         }
         break;
@@ -122,18 +122,18 @@ void checkCommandsType(AST *node)
 
     case AST_VEC_ATRIBUTION:
     {
-        int identifierType = checkSymbol(node->symbol);
-        int indexType = checkExpr(node->son[0]);
-        int exprType = checkExpr(node->son[1]);
+        int identifierType = checkSymbol(node->son[0]->son[0]->symbol);
+        int indexType = checkExpr(node->son[0]->son[0]->son[0]);
+        int exprType = checkExpr(node->son[0]->son[0]->son[1]);
 
         if (indexType == DATATYPE_FLOAT || (areNotCompatibleTypes(identifierType, exprType)))
         {
-            fprintf(stderr, "Semantic Error Found: vector %s of type DATA_TYPE_%i with index DATA_TYPE_%i has assigned type of %i \n", node->symbol->text, identifierType, indexType, exprType);
+            fprintf(stderr, "Semantic Error Found: vector %s of type DATA_TYPE_%i with index DATA_TYPE_%i has assigned type of %i \n", node->son[0]->son[0]->symbol->text, identifierType, indexType, exprType);
             numberOfSemanticErrors++;
         }
-        else if (node->symbol->type != SYMBOL_VECTOR)
+        else if (node->son[0]->son[0]->symbol->type != SYMBOL_VECTOR)
         {
-            fprintf(stderr, "Semantic Error Found: Identifier %s of type DATA_TYPE_%i is not a vector \n", node->symbol->text, identifierType);
+            fprintf(stderr, "Semantic Error Found: Identifier %s of type DATA_TYPE_%i is not a vector \n", node->son[0]->son[0]->symbol->text, identifierType);
             numberOfSemanticErrors++;
         }
         break;
@@ -143,11 +143,11 @@ void checkCommandsType(AST *node)
     case AST_IF_THEN_ELSE:
     case AST_WHILE:
     {
-        int condition = checkExpr(node->son[0]);
+        int condition = checkExpr(node->son[0]->son[0]->son[0]);
 
         if (!checkIsEscalar(condition))
         {
-            switch (node->type)
+            switch (node->son[0]->son[0]->type)
             {
             case AST_IF_THEN_ELSE:
             case AST_IF_THEN:
@@ -167,7 +167,7 @@ void checkCommandsType(AST *node)
 
     default:
         for (i = 0; i < MAX_SONS; i++)
-            checkCommandsType(node->son[i]);
+            checkCommandsType(node->son[0]->son[0]->son[i]);
         break;
     }
 }

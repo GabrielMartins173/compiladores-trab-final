@@ -1457,7 +1457,7 @@ yyreduce:
     {
   case 2:
 #line 68 "parser.y"
-              {Root = (yyval.ast); checkAndSetDeclarations(Root); checkUndeclared(Root); checkCommandsType(Root);}
+              {Root = (yyval.ast); checkAndSetDeclarations(Root); /*checkUndeclared(Root);*/ checkCommandsType(Root);}
 #line 1462 "y.tab.c"
     break;
 

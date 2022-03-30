@@ -65,7 +65,7 @@ AST *Root;
 
 %%
 
-program: decl {Root = $$; checkAndSetDeclarations(Root); checkUndeclared(Root); checkCommandsType(Root);}
+program: decl {Root = $$; checkAndSetDeclarations(Root); /*checkUndeclared(Root);*/ checkCommandsType(Root);}
     ;
 
 decl: dec ';' decl              {$$ = astCreate(AST_DECL, 0, $1, $3, 0, 0);}

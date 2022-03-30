@@ -2,29 +2,8 @@
 
 ETAPA=etapa4
 
-etapa4:  main.o y.tab.o lex.yy.o hash.o ast.o decompiler.o semantic.o
-	gcc  main.o y.tab.o lex.yy.o hash.o ast.c decompiler.c semantic.c -o $(ETAPA)
-
-main.o: main.c
-	gcc -c main.c
-
-decompiler.o: decompiler.c
-	gcc -c decompiler.c
-
-semantic.o: semantic.c
-	gcc -c semantic.c
-
-hash.o: hash.c
-	gcc -c hash.c
-	
-ast.o: ast.c
-	gcc -c ast.c
-
-y.tab.o: y.tab.c 
-	gcc -c y.tab.c
-
-lex.yy.o: lex.yy.c
-	gcc -c lex.yy.c
+etapa4:  main.c y.tab.c lex.yy.c 
+	gcc -g main.c y.tab.c lex.yy.c hash.c ast.c decompiler.c semantic.c -o $(ETAPA)
 
 y.tab.c: parser.y
 	yacc -d parser.y

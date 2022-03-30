@@ -60,9 +60,6 @@ void hashPrint(void)
         {
             fprintf(stderr, "\nTable[%d] has %s with SYMBOL_%i and DATA_TYPE_%i with %i parameters", i, node->text, node->type, node->datatype, node->quantityOfFuncParameters);
         }
-
-    for (parameter = node->parameter; parameter; parameter = parameter->next)
-        fprintf(stderr, "\n     %s = DATA_TYPE_%i", parameter->identifier->text, parameter->datatype);
 }
 
 int hashCheckUndeclared(void)
@@ -72,13 +69,15 @@ int hashCheckUndeclared(void)
 
     for (int i = 0; i < HASH_SIZE; i++)
     {
-        for (node = Table[i]; node; node = node->next)
+        node = Table[i];
+        while(node)
         {
             if (node->type == SYMBOL_TK_IDENTIFIER)
             {
                 printf("SEMANTIC ERROR!! The following identifier %s is undeclared\n", node->text);
                 undeclared++;
             }
+            node = node->next;
         }
     }
     return undeclared;
