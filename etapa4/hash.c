@@ -42,6 +42,7 @@ HASH_NODE *hashInsert(char *text, int type)
     newnode = (HASH_NODE *)calloc(1, sizeof(HASH_NODE));
     newnode->type = type;
     newnode->text = (char *)calloc(strlen(text) + 1, sizeof(char));
+    newnode->quantityOfFuncParameters = 0;
     strcpy(newnode->text, text);
     newnode->next = Table[address];
     Table[address] = newnode;
@@ -52,9 +53,16 @@ void hashPrint(void)
 {
     int i;
     HASH_NODE *node;
+    FUNC_PARAMETER *parameter;
+
     for (i = 0; i < HASH_SIZE; i++)
         for (node = Table[i]; node; node = node->next)
-            printf("Table[%d] has %s\n", i, node->text);
+        {
+            fprintf(stderr, "\nTable[%d] has %s with SYMBOL_%i and DATA_TYPE_%i with %i parameters", i, node->text, node->type, node->datatype, node->quantityOfFuncParameters);
+        }
+
+    for (parameter = node->parameter; parameter; parameter = parameter->next)
+        fprintf(stderr, "\n     %s = DATA_TYPE_%i", parameter->identifier->text, parameter->datatype);
 }
 
 int hashCheckUndeclared(void)

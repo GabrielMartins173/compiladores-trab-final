@@ -126,7 +126,7 @@ void checkCommandsType(AST *node)
         int indexType = checkExpr(node->son[0]);
         int exprType = checkExpr(node->son[1]);
 
-        if (indexType == DATATYPE_FLOAT || (isCompatibleTypes(identifierType, exprType)))
+        if (indexType == DATATYPE_FLOAT || (areNotCompatibleTypes(identifierType, exprType)))
         {
             fprintf(stderr, "Semantic Error Found: vector %s of type DATA_TYPE_%i with index DATA_TYPE_%i has assigned type of %i \n", node->symbol->text, identifierType, indexType, exprType);
             numberOfSemanticErrors++;
@@ -316,7 +316,7 @@ int checkExpr(AST *node)
     case AST_PARENTHESIS:
         return checkExpr(node->son[0]);
 
-    case AST_READ:
+    
     default:
         for (i = 0; i < MAX_SONS; i++)
         {
@@ -328,7 +328,7 @@ int checkExpr(AST *node)
     return -1;
 }
 
-int isCompatibleTypes(int identifierType, int exprType)
+int areNotCompatibleTypes(int identifierType, int exprType)
 {
     return !(checkIsEscalar(identifierType) && checkIsEscalar(exprType));
 }
