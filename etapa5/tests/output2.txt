@@ -1,0 +1,51 @@
+int main()x = 1 + b 
+int main() 
+int main(){
+; 
+
+} 
+int main(){
+a = 1 + 1; 
+
+} 
+float testing_t(char a,int b)if len(a) - len(b) == 10 
+then 
+ return a[b]else 
+ print "error during execution!!!" 
+int main(int x,char y,float z){
+
+} 
+int empty-function(){
+{
+; 
+; 
+; 
+
+}; 
+
+} 
+int test-while_if(int x,int y,int z){
+while (1 == 1){
+if 2 == 2 
+then 
+ {
+x = 1; 
+
+}else 
+ {
+x = x + 1; 
+y = z + x; 
+
+}; 
+
+}; 
+return x; 
+
+} 
+char c:'x'; 
+char d:100; 
+int a:'A'; 
+int i:1; 
+int v[10]:'a'000000000; 
+int matrix[100]; 
+float f:2/3; 
