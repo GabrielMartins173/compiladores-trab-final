@@ -2,16 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C/C++ Runner: Debug Session",
+      "name": "et4",
       "type": "cppdbg",
       "request": "launch",
       "args": [
-        ""
+        "tests/input.txt","tests/output.txt"
       ],
       "stopAtEntry": false,
-      "cwd": "/home/gabriel/Desktop/COMPILADORES/etapa1",
+      "cwd": "/home/gabriel/Desktop/compiladores-trab-final/etapa4",
       "environment": [],
-      "program": "/home/gabriel/Desktop/COMPILADORES/etapa1/build/Debug/outDebug",
+      "program": "/home/gabriel/Desktop/compiladores-trab-final/etapa4/etapa4",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "/bin/gdb",
