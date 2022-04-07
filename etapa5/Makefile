@@ -3,7 +3,7 @@
 ETAPA=etapa5
 
 etapa5:  main.c y.tab.c lex.yy.c 
-	gcc -g main.c y.tab.c lex.yy.c hash.c ast.c decompiler.c semantic.c -o $(ETAPA)
+	gcc -g main.c y.tab.c lex.yy.c hash.c ast.c decompiler.c semantic.c tacs.c -o $(ETAPA)
 
 y.tab.c: parser.y
 	yacc -d parser.y

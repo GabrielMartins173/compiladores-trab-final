@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "ast.h"
 #include "semantic.h"
+#include "tacs.h"
 
 int yyerror();
 int yylex();
@@ -65,7 +66,7 @@ AST *Root;
 
 %%
 
-program: decl {Root = $$; checkAndSetDeclarations(Root); /*checkUndeclared(Root);*/ checkCommandsType(Root);}
+program: decl {Root = $$; checkAndSetDeclarations(Root); /*checkUndeclared(Root);*/ checkCommandsType(Root); tacPrintRecursive(generateCode($1));}
     ;
 
 decl: dec ';' decl              {$$ = astCreate(AST_DECL, 0, $1, $3, 0, 0);}

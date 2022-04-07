@@ -102,3 +102,10 @@ void hashInsertFuncParameter(FUNC_PARAMETER *newParameter, HASH_NODE *func)
     func->quantityOfFuncParameters++;
     fprintf(stderr, "\n");
 }
+
+HASH_NODE *makeTemp(void){
+    static int serial = 0;
+    char buffer[256] = "";
+    sprintf(buffer, "myWeeeird_Temp%d",serial++);
+    return hashInsert(buffer, SYMBOL_VARIABLE);
+}

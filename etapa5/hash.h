@@ -43,5 +43,6 @@ HASH_NODE *hashInsert(char *text, int type);
 void hashPrint(void);
 int hashCheckUndeclared(void);
 void hashInsertFuncParameter(FUNC_PARAMETER *newParameter, HASH_NODE *func);
+HASH_NODE *makeTemp(void);
 
 #endif

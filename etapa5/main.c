@@ -9,6 +9,7 @@ Código baseado na implementação feita pelo professor Marcelo Johann
 #include "ast.h"
 #include "decompiler.h"
 #include "semantic.h"
+#include "tacs.h"
 
 extern int yylex();
 extern int yyparse();
@@ -60,7 +61,8 @@ int main(int argc, char **argv)
     exit(4);
   }
 
-  hashPrint();
+  //hashPrint();
+
   decompile(Root, fp);
 
   printf("Number of Lines on the File: %d\n\n", getLineNumber());
