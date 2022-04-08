@@ -13,6 +13,7 @@ enum
     SYMBOL_VARIABLE,
     SYMBOL_FUNCTION,
     SYMBOL_VECTOR,
+    SYMBOL_LABEL,
     DATATYPE_INT,
     DATATYPE_CHAR,
     DATATYPE_FLOAT,
@@ -44,5 +45,6 @@ void hashPrint(void);
 int hashCheckUndeclared(void);
 void hashInsertFuncParameter(FUNC_PARAMETER *newParameter, HASH_NODE *func);
 HASH_NODE *makeTemp(void);
+HASH_NODE *makeLabel(void);
 
 #endif

@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 
   yyparse();
 
-  astPrint(Root, 0);
+  //astPrint(Root, 0);
 
   int semanticErrorsFound = getSemanticErrors();
 

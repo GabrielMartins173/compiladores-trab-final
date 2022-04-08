@@ -6,7 +6,8 @@
 #include "hash.h"
 #include "ast.h"
 
-enum{
+enum
+{
     TAC_SYMBOL = 500,
     TAC_ADD,
     TAC_SUB,
@@ -18,10 +19,26 @@ enum{
     TAC_LE,
     TAC_EQ,
     TAC_DIF,
-    TAC_COPY
+    TAC_COPY,
+    TAC_COPY_VEC,
+    TAC_IF,
+    TAC_IF_ELSE,
+    TAC_JMP,
+    TAC_JMP_FALSE,
+    TAC_LABEL,
+    TAC_RETURN,
+    TAC_PRINT,
+    TAC_READ,
+    TAC_WHILE,
+    TAC_BEGINFUN,
+    TAC_ENDFUN,
+    TAC_VEC_ACCESS,
+    TAC_FUNCALL,
+    TAC_FUNC_ARG
 };
 
-typedef struct tac_node{
+typedef struct tac_node
+{
     int type;
     HASH_NODE *res;
     HASH_NODE *op1;
@@ -30,7 +47,7 @@ typedef struct tac_node{
     struct tac_node *next;
 } TAC;
 
-TAC *tacCreate (int type, HASH_NODE *res, HASH_NODE *op1, HASH_NODE *op2);
+TAC *tacCreate(int type, HASH_NODE *res, HASH_NODE *op1, HASH_NODE *op2);
 void tacPrint(TAC *tac);
 void tacPrintRecursive(TAC *tac);
 TAC *tacJoin(TAC *l1, TAC *l2);

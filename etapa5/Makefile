@@ -2,7 +2,7 @@
 
 ETAPA=etapa5
 
-etapa5:  main.c y.tab.c lex.yy.c 
+etapa5:  clean main.c y.tab.c lex.yy.c 
 	gcc -g main.c y.tab.c lex.yy.c hash.c ast.c decompiler.c semantic.c tacs.c -o $(ETAPA)
 
 y.tab.c: parser.y
@@ -10,10 +10,6 @@ y.tab.c: parser.y
 
 lex.yy.c: scanner.c
 	lex scanner.l
-
-build:
-	make clean --no-print-directory
-	make --no-print-directory
 
 test:
 	./$(ETAPA) tests/input.txt tests/output.txt
