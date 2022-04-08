@@ -2,16 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "et4",
+      "name": "et5",
       "type": "cppdbg",
       "request": "launch",
       "args": [
         "tests/input.txt","tests/output.txt"
       ],
       "stopAtEntry": false,
-      "cwd": "/home/gabriel/Desktop/compiladores-trab-final/etapa4",
+      "cwd": "/home/gabriel/Desktop/compiladores-trab-final/etapa5",
       "environment": [],
-      "program": "/home/gabriel/Desktop/compiladores-trab-final/etapa4/etapa4",
+      "program": "/home/gabriel/Desktop/compiladores-trab-final/etapa5/etapa5",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "/bin/gdb",
