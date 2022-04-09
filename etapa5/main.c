@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
   decompile(Root, fp);
 
-  printf("Number of Lines on the File: %d\n\n", getLineNumber());
+  printf("\nNumber of Lines on the File: %d\n\n", getLineNumber());
   printf("Number of Errors on the File: %d\n\n", getNumberOfErrors());
 
   printf(" \nCompilation Completed Successfully! \n\n");

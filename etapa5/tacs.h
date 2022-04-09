@@ -20,7 +20,7 @@ enum
     TAC_EQ,
     TAC_DIF,
     TAC_COPY,
-    TAC_COPY_VEC,
+    TAC_VECTOR_COPY,
     TAC_IF,
     TAC_IF_ELSE,
     TAC_JMP,
@@ -29,12 +29,14 @@ enum
     TAC_RETURN,
     TAC_PRINT,
     TAC_READ,
-    TAC_WHILE,
-    TAC_BEGINFUN,
-    TAC_ENDFUN,
-    TAC_VEC_ACCESS,
-    TAC_FUNCALL,
-    TAC_FUNC_ARG
+    TAC_FUNCTION_BEGIN,
+    TAC_FUNCTION_END,
+    TAC_ARRAY_ELEMENT,
+    TAC_FUNCTION_CALL,
+    TAC_EXPR_LIST,
+    TAC_GOTO,
+    TAC_WHILE_BEGIN,
+    TAC_WHILE_END
 };
 
 typedef struct tac_node
